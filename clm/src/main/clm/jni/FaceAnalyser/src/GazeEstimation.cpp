@@ -190,17 +190,17 @@ void FaceAnalysis::DrawGaze(Mat img, const CLMTracker::CLM& clm_model, Point3f g
 
 	vector<Point3d> points_left;
 	points_left.push_back(Point3d(pupil_left));
-	points_left.push_back(Point3d(pupil_left + gazeVecAxisLeft*50.0));
+	points_left.push_back(Point3d(pupil_left + gazeVecAxisLeft*150.0));
 
 	vector<Point3d> points_right;
 	points_right.push_back(Point3d(pupil_right));
-	points_right.push_back(Point3d(pupil_right + gazeVecAxisRight*50.0));
+	points_right.push_back(Point3d(pupil_right + gazeVecAxisRight*150.0));
 
 	vector<Point2d> imagePoints_left;
 	projectPoints(points_left, Mat::eye(3, 3, DataType<double>::type), Mat::zeros(1, 3, DataType<double>::type), cameraMat, Mat::zeros(4, 1, DataType<double>::type), imagePoints_left);
-	line(img, imagePoints_left[0], imagePoints_left[1], Scalar(110, 220, 0), 2, 8);
+	line(img, imagePoints_left[0], imagePoints_left[1], Scalar(0, 0, 255), 12, 8);
 
 	vector<Point2d> imagePoints_right;
 	projectPoints(points_right, Mat::eye(3, 3, DataType<double>::type), Mat::zeros(1, 3, DataType<double>::type), cameraMat, Mat::zeros(4, 1, DataType<double>::type), imagePoints_right);
-	line(img, imagePoints_right[0], imagePoints_right[1], Scalar(110, 220, 0), 2, 8);
+	line(img, imagePoints_right[0], imagePoints_right[1], Scalar(0, 0, 255), 12, 8);
 }

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import org.draxus.clm.GazeDetection;
 import org.opencv.android.BaseLoaderCallback;
@@ -33,7 +35,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
     private Point previousPoint;
     private int previousPointRepetitions = 0;
-
+    private Button front;
+    private Button back;
     private Random random = new Random(1);
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -65,13 +68,31 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         //Log.d(TAG, Build.CPU_ABI);
 
         setContentView(R.layout.camera_surface_view);
+        mOpenCvCameraView = findViewById(R.id.camera_activity_java_surface_view);
 
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.camera_activity_java_surface_view);
-        mOpenCvCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
+        front = findViewById(R.id.button1);
+        front.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCamera(CameraBridgeViewBase.CAMERA_ID_FRONT);
+            }
+        });
+        back = findViewById(R.id.button2);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCamera(CameraBridgeViewBase.CAMERA_ID_BACK);
+            }
+        });
+
+    }
+
+    private void setCamera(int cameraIndex) {
+        mOpenCvCameraView.setCameraIndex(cameraIndex);
         mOpenCvCameraView.setMaxFrameSize(800, 800); // TODO choose right size?
-
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
-
+        back.setVisibility(SurfaceView.INVISIBLE);
+        front.setVisibility(SurfaceView.INVISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
     }
 

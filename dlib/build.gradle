@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -17,7 +17,7 @@ android {
     }
     task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
         def ndkDir = android.ndkDirectory
-        commandLine "$ndkDir/ndk-build",
+        commandLine "$ndkDir\\ndk-build.cmd",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=src/main/jniLibs',
                 'APP_BUILD_SCRIPT=src/main/dlib/jni/Android.mk',
